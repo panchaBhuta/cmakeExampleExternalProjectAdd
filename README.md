@@ -1,10 +1,6 @@
 cmakeExampleExternalProjectAdd
 ==============================
 
-| **Linux** | **Mac** | **Windows** |
-|-----------|---------|-------------|
-| [![Linux](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/workflows/Linux/badge.svg)](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/actions?query=workflow%3ALinux) | [![macOS](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/workflows/macOS/badge.svg)](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/actions?query=workflow%3AmacOS) | [![Windows](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/workflows/Windows/badge.svg)](https://github.com/panchaBhuta/cmakeExampleExternalProjectAdd/actions?query=workflow%3AWindows) |
-
 This repository contains implementation for downloading few external project's source at CMake's configure step rather than as part of the main build. These external project's are added using `ExternalProject_Add(...)`, which after downloading, configure's, build and installs them.
 
 At the time of creation of this project I am new to `cmake`. This project is meant as place holder for my learnings and observations which might help othersi by sharing it here.
@@ -58,11 +54,7 @@ mkdir ./rootbuild
 cd ./rootbuild
 
 
-cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DPROJECT_BUILD_DEPENDENCIES=ON
-cmake  --build . -v
-
-
-cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DPROJECT_BUILD_DEPENDENCIES=OFF
+cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 cmake  --build . -v
 
 

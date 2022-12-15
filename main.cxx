@@ -5,6 +5,10 @@
 #include <cxxopts/cxxopts.hpp>
 #include <cpp-properties/PropertiesParser.h>
 
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+
 int main(int argc, char** argv)
 {
     cxxopts::Options options("MyProgram", "One line description of MyProgram");
@@ -29,6 +33,7 @@ int main(int argc, char** argv)
        
     std::vector<float> col = doc.GetColumn<float>("Close");
     std::cout << "Read " << col.size() << " values." << std::endl;
+    EXPECT_EQ(5, col.size());
 
     return 0;
 }

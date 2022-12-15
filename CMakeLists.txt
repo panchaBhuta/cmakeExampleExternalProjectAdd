@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
 
 project(CMAKEEXAMPLE VERSION 1.0)
 
+include(CTest)
 include(GNUInstallDirs)
 
 
@@ -16,20 +17,48 @@ set(RAPIDCSV       rapidcsv_FilterSort)
 set(CXXARGsOPTS    cxxopts)
 set(CPPPROPERTIES  cppproperties_RecVar)
 
+set(GOOGLETEST googletest)
+
 #list(APPEND EXTRA_LIBS rapidcsv)
 
 option(PROJECT_BUILD_DEPENDENCIES "Build ${PROJECT_NAME} and the projects it depends on." ON)
 
 
-if(PROJECT_BUILD_DEPENDENCIES)
-  include("${CMAKE_CURRENT_SOURCE_DIR}/DependenciesBuild.cmake")
+    # The way that CLion manages multiple configurations, it causes a copy of
+    # the CMakeCache.txt to be copied across due to it not expecting there to
+    # be a project within a project.  This causes the hard-coded paths in the
+    # cache to be copied and builds to fail.  To mitigate this, we simply
+    # remove the cache if it exists before we configure the new project.  It
+    # is safe to do so because it will be re-generated.  Since this is only
+    # executed at the configure step, it should not cause additional builds or
+    # downloads.
+    file(REMOVE "${DOWNLOAD_3rdPARTY_LIBS}/CMakeCache.txt")
 
-  #search for cppproperties package-config-cmake files
-  # NOTE : find_package() is called here only for checking version number.
-  find_package(cppproperties 2.0.01.0 REQUIRED PATHS ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cppproperties)
-
-  return()
-endif()
+    # Create and build a separate CMake project to carry out the download.
+    # If we've already previously done these steps, they will not cause
+    # anything to be updated, so extra rebuilds of the project won't occur.
+    # Make sure to pass through CMAKE_MAKE_PROGRAM in case the main project
+    # has this set to something not findable on the PATH.
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/DependenciesBuild.cmake.in"
+                   "${DOWNLOAD_3rdPARTY_LIBS}/CMakeLists.txt")
+    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}"
+                        -D "CMAKE_MAKE_PROGRAM:FILE=${CMAKE_MAKE_PROGRAM}"
+                        .
+                    RESULT_VARIABLE result
+                    #${OUTPUT_QUIET}
+                    WORKING_DIRECTORY "${DOWNLOAD_3rdPARTY_LIBS}"
+    )
+    if(result)
+        message(FATAL_ERROR "CMake step for CMAKEEXAMPLE failed: ${result}")
+    endif()
+    execute_process(COMMAND ${CMAKE_COMMAND} --build .
+                    RESULT_VARIABLE result
+                    #${OUTPUT_QUIET}
+                    WORKING_DIRECTORY "${DOWNLOAD_3rdPARTY_LIBS}"
+    )
+    if(result)
+        message(FATAL_ERROR "Build step for CMAKEEXAMPLE failed: ${result}")
+    endif()
 
 #NOTE : 'cxxopts' doesnot call export(...), hence `find_package(cxxopts... /lib/cmake/cxxopts)`
 #        behavior is different from that of `find_package(cxxopts... /lib)`
@@ -50,6 +79,13 @@ set_property(TARGET cppproperties PROPERTY
              IMPORTED_LOCATION ${INSTALL_3rdPARTY_LIBS}/lib/libcppproperties.a)
 
 
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+add_subdirectory(${DOWNLOAD_3rdPARTY_LIBS}/${GOOGLETEST} ${BUILD_3rdPARTY_LIBS}/${GOOGLETEST})
+
+
 #add_subdirectory(rapidcsv)
 add_dependencies(cmakeExampleExternalProjectAdd rapidcsv cxxopts cppproperties)
 
@@ -61,8 +97,10 @@ target_include_directories(cmakeExampleExternalProjectAdd
 target_link_directories(cmakeExampleExternalProjectAdd PRIVATE ${INSTALL_3rdPARTY_LIBS}/lib)
 
 target_link_libraries(cmakeExampleExternalProjectAdd INTERFACE rapidcsv cxxopts)
-target_link_libraries(cmakeExampleExternalProjectAdd PRIVATE cppproperties)
+target_link_libraries(cmakeExampleExternalProjectAdd PRIVATE cppproperties  gtest gmock_main)
 
 # add the install targets
 install(TARGETS cmakeExampleExternalProjectAdd DESTINATION bin)
 
+
+add_test(NAME example_test COMMAND cmakeExampleExternalProjectAdd --propfilename=${CMAKE_CURRENT_LIST_DIR}/property/test1.txt)

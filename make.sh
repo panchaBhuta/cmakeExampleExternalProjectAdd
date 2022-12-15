@@ -9,13 +9,10 @@ cd ./rootbuild
 #rm -rf *
 
 
-cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DPROJECT_BUILD_DEPENDENCIES=ON ..
+cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ..
 cmake  --build . -v
 
-
-cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DPROJECT_BUILD_DEPENDENCIES=OFF ..
-cmake  --build . -v
-
+ctest
 
 ./cmakeExampleExternalProjectAdd --propfilename=../property/test1.txt
 
