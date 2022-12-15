@@ -40,7 +40,9 @@ option(PROJECT_BUILD_DEPENDENCIES "Build ${PROJECT_NAME} and the projects it dep
     # Make sure to pass through CMAKE_MAKE_PROGRAM in case the main project
     # has this set to something not findable on the PATH.
     configure_file("${CMAKE_CURRENT_LIST_DIR}/DependenciesBuild.cmake.in"
-                   "${DOWNLOAD_3rdPARTY_LIBS}/CMakeLists.txt")
+                   "${DOWNLOAD_3rdPARTY_LIBS}/CMakeLists.txt"
+                   @ONLY
+    )
     execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}"
                         -D "CMAKE_MAKE_PROGRAM:FILE=${CMAKE_MAKE_PROGRAM}"
                         .
@@ -86,7 +88,6 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(${DOWNLOAD_3rdPARTY_LIBS}/${GOOGLETEST} ${BUILD_3rdPARTY_LIBS}/${GOOGLETEST})
 
 
-#add_subdirectory(rapidcsv)
 add_dependencies(cmakeExampleExternalProjectAdd rapidcsv cxxopts cppproperties)
 
 target_include_directories(cmakeExampleExternalProjectAdd
