@@ -26,7 +26,7 @@ if(PROJECT_BUILD_DEPENDENCIES)
 
   #search for cppproperties package-config-cmake files
   # NOTE : find_package() is called here only for checking version number.
-  find_package(cppproperties 2.0.01.0 REQUIRED PATHS ${INSTALL_3rdPARTY_LIBS}/lib/)
+  find_package(cppproperties 2.0.01.0 REQUIRED PATHS ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cppproperties)
 
   return()
 endif()
