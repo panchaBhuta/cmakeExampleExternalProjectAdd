@@ -57,6 +57,7 @@ cd ./rootbuild
 cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 cmake  --build . -v
 
+ctest
 
 ./cmakeExampleExternalProjectAdd --propfilename=../property/test1.txt
 
