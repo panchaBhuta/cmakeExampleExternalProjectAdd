@@ -19,10 +19,6 @@ set(CPPPROPERTIES  cppproperties_RecVar)
 
 set(GOOGLETEST googletest)
 
-#list(APPEND EXTRA_LIBS rapidcsv)
-
-option(PROJECT_BUILD_DEPENDENCIES "Build ${PROJECT_NAME} and the projects it depends on." ON)
-
 
     # The way that CLion manages multiple configurations, it causes a copy of
     # the CMakeCache.txt to be copied across due to it not expecting there to
