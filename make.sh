@@ -2,7 +2,7 @@
 
 # make.sh
 
-mkdir ./rootbuild
+mkdir -p ./rootbuild
 cd ./rootbuild
 
 #rm -rf ../libs3rdParty/

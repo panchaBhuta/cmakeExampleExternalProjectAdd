@@ -4,7 +4,8 @@ include (ExternalProject)
 
 # Begin: External Third Party Library
 ExternalProject_Add (rapidcsv
-  GIT_REPOSITORY "git@github.com:panchaBhuta/rapidcsv_FilterSort.git"
+  #GIT_REPOSITORY "git@github.com:panchaBhuta/rapidcsv_FilterSort.git"
+  GIT_REPOSITORY "https://github.com/panchaBhuta/rapidcsv_FilterSort.git"
   GIT_TAG "v2.0.fs-8.68"
   SOURCE_DIR ${DOWNLOAD_3rdPARTY_LIBS}/${RAPIDCSV}
   BINARY_DIR ${BUILD_3rdPARTY_LIBS}/${RAPIDCSV}
@@ -15,7 +16,8 @@ ExternalProject_Add (rapidcsv
 )
 
 ExternalProject_Add (cxxopts
-  GIT_REPOSITORY "git@github.com:jarro2783/cxxopts.git"
+  #GIT_REPOSITORY "git@github.com:jarro2783/cxxopts.git"
+  GIT_REPOSITORY "https://github.com/jarro2783/cxxopts.git"
   GIT_TAG "e9d20c2c078076da928288fdbae2a39431b4f253"
   SOURCE_DIR ${DOWNLOAD_3rdPARTY_LIBS}/${CXXARGsOPTS}
   BINARY_DIR ${BUILD_3rdPARTY_LIBS}/${CXXARGsOPTS}
@@ -32,7 +34,8 @@ ExternalProject_Add (cxxopts
 )
 
 ExternalProject_Add (cppproperties
-  GIT_REPOSITORY "git@github.com:panchaBhuta/cpp-properties_RecVar.git"
+  #GIT_REPOSITORY "git@github.com:panchaBhuta/cpp-properties_RecVar.git"
+  GIT_REPOSITORY "https://github.com/panchaBhuta/cpp-properties_RecVar.git"
   GIT_TAG "v2.0.rv-01.0"
   SOURCE_DIR ${DOWNLOAD_3rdPARTY_LIBS}/${CPPPROPERTIES}
   BINARY_DIR ${BUILD_3rdPARTY_LIBS}/${CPPPROPERTIES}
