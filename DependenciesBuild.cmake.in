@@ -17,18 +17,6 @@ set(GOOGLETEST @GOOGLETEST@)
 # This Project Depends on External Project(s) 
 include (ExternalProject)
 
-ExternalProject_Add (googletest
-  GIT_REPOSITORY  https://github.com/google/googletest.git
-  #GIT_TAG         master
-  GIT_TAG         main
-  SOURCE_DIR          ${DOWNLOAD_3rdPARTY_LIBS}/googletest
-  BINARY_DIR          ${BUILD_3rdPARTY_LIBS}/googletest
-  CONFIGURE_COMMAND   ""
-  BUILD_COMMAND       ""
-  INSTALL_COMMAND     ""
-  TEST_COMMAND        ""
-)
-
 # Begin: External Third Party Library
 ExternalProject_Add (rapidcsv
   #GIT_REPOSITORY   git@github.com:panchaBhuta/rapidcsv_FilterSort.git
@@ -76,3 +64,18 @@ ExternalProject_Add (cppproperties
 #search for cppproperties package-config-cmake files
 #NOTE : find_package() is called here only for checking version number.
 find_package(cppproperties 2.0.01.0 REQUIRED PATHS ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cppproperties)
+
+
+################# libs for TESTs
+
+ExternalProject_Add (googletest
+  GIT_REPOSITORY  https://github.com/google/googletest.git
+  #GIT_TAG         master
+  GIT_TAG         main
+  SOURCE_DIR          ${DOWNLOAD_3rdPARTY_LIBS}/googletest
+  BINARY_DIR          ${BUILD_3rdPARTY_LIBS}/googletest
+  CONFIGURE_COMMAND   ""
+  BUILD_COMMAND       ""
+  INSTALL_COMMAND     ""
+  TEST_COMMAND        ""
+)

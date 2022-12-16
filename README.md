@@ -42,8 +42,12 @@ Packaging using `export(PACKAGE cppproperties)`.
 
 #### cmake-integration   :
 Version check of `2.0.01.0`. Installation of headers, binary-lib and cmake-files.  
-`find_package(cppproperties )` when used in the build of main project, has the side-effect that during linking of the `cmakeExampleExternalProjectAdd`, uses the library `libcppproperties.a` in build-path, instead of the one in install-path. Hence, `find_package(cppproperties )` is called to check the version `2.0.01.0` after installation of `cppproperties` library.  
-The path to the library `libcppproperties.a` is provided thru `set_property(TARGET cppproperties ...)`.
+`find_package(cppproperties )` when used in the build of main project, has the side-effect that during linking of the `cmakeExampleExternalProjectAdd`, uses the library `libcppproperties.a` in build-path, instead of the one in install-path. Hence, `find_package(cppproperties )` is called in DependenciesBuild.cmake (and not in '${CMAKE_SOURCE_DIRECTORY}/CMakelists.txt)' to check the version `2.0.01.0` after installation of `cppproperties` library.  
+The path to the library `libcppproperties.a` in INSTALL-dir is provided thru `set_property(TARGET cppproperties ...)` in '${CMAKE_SOURCE_DIRECTORY}/CMakelists.txt' .
+
+
+### 4. [googletest :: latest](https://github.com/google/googletest)
+This test-lib is integrated by calling `add_subdirectory(...)`.
 
 
 Usage
@@ -56,14 +60,22 @@ cd ./rootbuild
 
 cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 cmake  --build . -v
-
-ctest
+ ctest
 
 ./cmakeExampleExternalProjectAdd --propfilename=../property/test1.txt
 
 ```
 
+All the 3rd-Party-libs are downloaded, built and installed in `${CMAKE_SOURCE_DIRECTORY}/libs3rdParty`.  
+
+
+References
+----------
+Check out [Crascit-DownloadProject](https://github.com/Crascit/DownloadProject) for better understanding of using `ExternalProject_Add(googletest ...)`
+  
+
+
 Keywords
 ========
-cmake, ExternalProject_Add.  
-Integration of rapicsv, cxxopts, cppproperties.
+cmake, ExternalProject_Add, add_library, add_subdirectory, find_package.  
+Integration of rapicsv, cxxopts, cppproperties, googletest.
