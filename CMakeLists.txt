@@ -47,7 +47,7 @@ set(GOOGLETEST googletest)
                     WORKING_DIRECTORY "${DOWNLOAD_3rdPARTY_LIBS}"
     )
     if(result)
-        message(FATAL_ERROR "CMake step for CMAKEEXAMPLE failed: ${result}")
+        message(FATAL_ERROR "CMake step for ${PROJECT_NAME} failed: ${result}")
     endif()
     execute_process(COMMAND ${CMAKE_COMMAND} --build .
                     RESULT_VARIABLE result
@@ -55,7 +55,7 @@ set(GOOGLETEST googletest)
                     WORKING_DIRECTORY "${DOWNLOAD_3rdPARTY_LIBS}"
     )
     if(result)
-        message(FATAL_ERROR "Build step for CMAKEEXAMPLE failed: ${result}")
+        message(FATAL_ERROR "Build step for ${PROJECT_NAME} failed: ${result}")
     endif()
 
 set(cxxopts_DIR ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cxxopts)
