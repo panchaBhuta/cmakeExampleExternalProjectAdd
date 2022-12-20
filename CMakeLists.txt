@@ -70,6 +70,8 @@ find_package(cppproperties 2.0.01.0 REQUIRED)
 add_executable(cmakeExampleExternalProjectAdd main.cxx)
 
 add_library(rapidcsv INTERFACE IMPORTED)
+#NOTE : 'cxxopts' doesnot call export(...), hence `find_package(cxxopts... /lib/cmake/cxxopts)`
+#        behavior is different from that of `find_package(cppproperties... /lib)`
 add_library(cxxopts  INTERFACE IMPORTED)
 
 
