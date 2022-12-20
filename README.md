@@ -1,9 +1,9 @@
 cmakeExampleExternalProjectAdd
 ==============================
 
-This repository contains implementation for downloading few external project's source at CMake's configure step rather than as part of the main build. These external project's are added using `ExternalProject_Add(...)`, which after downloading, configure's, build and installs them.
+This repository contains implementation for downloading few external project's source at CMake's configure step rather than as part of the main build. These external project's are added using `ExternalProject_Add(...)`, which after downloading, configure's, build and installs them.  
 
-At the time of creation of this project I am new to `cmake`. This project is meant as place holder for my learnings and observations which might help othersi by sharing it here.
+At the time of creation of this project I am new to `cmake`. This project is meant as place holder for my learnings and observations which might help others by sharing it here.  
 
 Any improvements or corrections in the `cmake` code are welcome.
 
@@ -42,8 +42,6 @@ Packaging using `export(PACKAGE cppproperties)`.
 
 #### cmake-integration   :
 Version check of `2.0.01.0`. Installation of headers, binary-lib and cmake-files.  
-`find_package(cppproperties )` when used in the build of main project, has the side-effect that during linking of the `cmakeExampleExternalProjectAdd`, uses the library `libcppproperties.a` in build-path, instead of the one in install-path. Hence, `find_package(cppproperties )` is called in DependenciesBuild.cmake (and not in '${CMAKE_SOURCE_DIRECTORY}/CMakelists.txt)' to check the version `2.0.01.0` after installation of `cppproperties` library.  
-The path to the library `libcppproperties.a` in INSTALL-dir is provided thru `set_property(TARGET cppproperties ...)` in '${CMAKE_SOURCE_DIRECTORY}/CMakelists.txt' .
 
 
 ### 4. [googletest :: latest](https://github.com/google/googletest)
@@ -60,7 +58,7 @@ cd ./rootbuild
 
 cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 cmake  --build . -v
- ctest
+ctest
 
 ./cmakeExampleExternalProjectAdd --propfilename=../property/test1.txt
 

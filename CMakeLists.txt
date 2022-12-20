@@ -58,9 +58,12 @@ set(GOOGLETEST googletest)
         message(FATAL_ERROR "Build step for CMAKEEXAMPLE failed: ${result}")
     endif()
 
-#NOTE : 'cxxopts' doesnot call export(...), hence `find_package(cxxopts... /lib/cmake/cxxopts)`
-#        behavior is different from that of `find_package(cxxopts... /lib)`
-find_package(cxxopts 3.0.0 REQUIRED PATHS ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cxxopts)
+set(cxxopts_DIR ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cxxopts)
+find_package(cxxopts 3.0.0 REQUIRED)
+
+set(cppproperties_DIR ${INSTALL_3rdPARTY_LIBS}/lib/cmake/cppproperties)
+find_package(cppproperties 2.0.01.0 REQUIRED)
+
 
 
 # add the executable
@@ -68,13 +71,6 @@ add_executable(cmakeExampleExternalProjectAdd main.cxx)
 
 add_library(rapidcsv INTERFACE IMPORTED)
 add_library(cxxopts  INTERFACE IMPORTED)
-
-# NOTE : find_package(cppproperties ...) can be used here instead, but while 
-#        linking executable 'cmakeExampleExternalProjectAdd' , the library 'libcppproperties.a' in
-#        build-path gets mapped instead of the one in install-path.
-add_library(cppproperties STATIC IMPORTED)
-set_property(TARGET cppproperties PROPERTY
-             IMPORTED_LOCATION ${INSTALL_3rdPARTY_LIBS}/lib/libcppproperties.a)
 
 
 # Prevent GoogleTest from overriding our compiler/linker options
