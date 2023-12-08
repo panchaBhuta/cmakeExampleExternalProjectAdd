@@ -9,7 +9,7 @@ Any improvements or corrections in the `cmake` code are welcome.
 
 External projects integration details
 -------------------------------------
-### 1.  [rapivcsv_FilterSort :: v3.2.8080](https://github.com/panchaBhuta/rapivcsv_FilterSort/tree/v3.2.8080)
+### 1.  [rapivcsv_FilterSort :: v3.2.8080](https://github.com/panchaBhuta/rapidcsv_FilterSort/tree/v3.2.8080)
 #### C++     :
 This is header only library.
 
