@@ -22,7 +22,7 @@ include (ExternalProject)
 ExternalProject_Add (rapidcsv
   #GIT_REPOSITORY   git@github.com:panchaBhuta/rapidcsv_FilterSort.git
   GIT_REPOSITORY   https://github.com/panchaBhuta/rapidcsv_FilterSort.git
-  GIT_TAG "v2.0.fs-8.68"
+  GIT_TAG "v3.2.8080"
   SOURCE_DIR ${DOWNLOAD_3rdPARTY_LIBS}/${RAPIDCSV}
   BINARY_DIR ${BUILD_3rdPARTY_LIBS}/${RAPIDCSV}
   CONFIGURE_COMMAND ${CMAKE_COMMAND}  -DCMAKE_BUILD_TYPE=Release  ${DOWNLOAD_3rdPARTY_LIBS}/${RAPIDCSV}
